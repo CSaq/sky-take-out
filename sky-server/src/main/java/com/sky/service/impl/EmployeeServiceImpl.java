@@ -112,4 +112,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         return pageResult;
     }
 
+    @Override
+    public void updateStatus(Long id, Integer status) {
+        // Check is current employee's ID disabled
+        Long currentEmployeeId = BaseContext.getCurrentId();
+        if(currentEmployeeId.equals(id)) {
+            throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
+        }
+
+        // Update employee status
+//        employeeMapper.updateStatus(id, status, currentEmployeeId);
+        Employee employee = Employee.builder()
+                .id(id)
+                .status(status)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId()).build();
+        employeeMapper.updateById(employee);
+    }
+
 }

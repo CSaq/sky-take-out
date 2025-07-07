@@ -27,4 +27,6 @@ public interface EmployeeService {
      * @return
      */
     PageResult getEmployeePage(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void updateStatus(Long id, Integer status);
 }

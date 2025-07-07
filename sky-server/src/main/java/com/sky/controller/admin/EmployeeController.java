@@ -98,4 +98,18 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 更新员工状态
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "更新员工状态")
+    public Result<String> updateStatus(Long id, @PathVariable Integer status) {
+        log.info("更新员工状态：id={}, status={}", id, status);
+        employeeService.updateStatus(id, status);
+        return Result.success("员工状态更新成功");
+    }
 }
