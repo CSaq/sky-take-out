@@ -40,7 +40,7 @@ public interface EmployeeMapper {
      * @return
      */
     @Select("select * from employee where id = #{id}")
-    Employee getByID(Long id);
+    Employee selectById(Long id);
 
     /**
      * Update the status of an employee

@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.constant.MessageConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -111,5 +112,37 @@ public class EmployeeController {
         log.info("更新员工状态：id={}, status={}", id, status);
         employeeService.updateStatus(id, status);
         return Result.success("员工状态更新成功");
+    }
+
+    /**
+     * 根据ID查询员工信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据ID查询员工信息")
+    public Result<Employee> getEmployeeById(@PathVariable Long id) {
+        log.info("根据ID查询员工信息：id={}", id);
+        Employee employee = employeeService.getById(id);
+        if (employee == null) {
+            return Result.error(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        return Result.success(employee);
+    }
+
+    /**
+     * 更新员工信息
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation(value = "更新员工信息")
+    public Result updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("更新员工信息：{}", employeeDTO);
+        employeeService.updateEmployee(employeeDTO);
+        return Result.success();
     }
 }
